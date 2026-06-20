@@ -58,9 +58,13 @@ async function getSaldo() {
             // Ambil saldo dari data profile Medanpedia
             const balance = result.data.balance;
             saldoEl.innerText = "Rp " + Number(balance).toLocaleString('id-ID');
+            saldoEl.className = "font-bold text-green-400";
         } else {
-            saldoEl.innerText = "Gagal memuat";
-            saldoEl.className = "font-bold text-red-400";
+            // MENAMPILKAN PESAN ERROR ASLI DARI BACKEND ATAU MEDANPEDIA
+            const pesanError = result.data || result.error || "Respon status false";
+            saldoEl.innerText = pesanError;
+            // Diberi style text-xs dan break-words agar teks error yang panjang tidak merusak kotak UI
+            saldoEl.className = "font-bold text-red-400 text-xs text-right block max-w-[200px] break-words";
         }
     } catch (error) {
         saldoEl.innerText = "Error koneksi";
