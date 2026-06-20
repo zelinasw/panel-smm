@@ -2,7 +2,8 @@ export async function onRequestGet(context) {
     try {
         const API_ID = context.env.SMM_PROVIDER_ID;
         const API_KEY = context.env.SMM_PROVIDER_KEY;
-        const API_URL = context.env.SMM_PROVIDER_URL || "https://medanpedia.co.id/api/v2";
+        // Mengubah fallback URL langsung ke endpoint /api/json milik Medanpedia
+        const API_URL = context.env.SMM_PROVIDER_URL || "https://medanpedia.co.id/api/json";
 
         // Jika variabel kosong (pembacaan environment bermasalah di Cloudflare)
         if (!API_KEY || !API_ID) {
