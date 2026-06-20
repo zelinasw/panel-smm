@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMM Panel - Jual Followers</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
+
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-400">Order Followers</h2>
+        
+        <form id="orderForm" class="space-y-4">
+            <div>
+                <label class="block text-sm mb-1">Pilih Layanan</label>
+                <select id="service" class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:border-blue-500">
+                    <option value="1001">Instagram Followers [1k] - Rp 10.000</option>
+                    <option value="1002">TikTok Followers [1k] - Rp 15.000</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm mb-1">Target Link / Username</label>
+                <input type="text" id="target" placeholder="https://instagram.com/username" required
+                    class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <div>
+                <label class="block text-sm mb-1">Jumlah (Quantity)</label>
+                <input type="number" id="quantity" placeholder="Minimal 100" required
+                    class="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none focus:border-blue-500">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-200">
+                Pesan Sekarang
+            </button>
+        </form>
+
+        <div id="responseMessage" class="mt-4 text-center hidden p-2 rounded"></div>
+    </div>
+
+    <script src="/assets/script.js"></script>
+</body>
+</html>
