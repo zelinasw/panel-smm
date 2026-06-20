@@ -3,20 +3,22 @@ export async function onRequestPost(context) {
         // 1. Ambil data input dari frontend
         const { service, target, quantity } = await context.request.json();
 
-        // 2. Ambil API Key & URL dari Environment Variables Cloudflare
+        // 2. Ambil Kredensial dari Environment Variables Cloudflare
+        const API_ID = context.env.SMM_PROVIDER_ID;
         const API_KEY = context.env.SMM_PROVIDER_KEY;
-        const API_URL = context.env.SMM_PROVIDER_URL || "https://api-provider-smm.com/v2";
+        const API_URL = context.env.SMM_PROVIDER_URL || "https://medanpedia.co.id/api/v2";
 
-        if (!API_KEY) {
-            return new Response(JSON.stringify({ error: "API Key belum di-config di Cloudflare" }), { status: 500 });
+        if (!API_KEY || !API_ID) {
+            return new Response(JSON.stringify({ error: "API ID atau API Key belum di-config di Cloudflare" }), { status: 500 });
         }
 
-        // 3. Oper pesanan ke SMM Provider menggunakan format URLSearchParams (standar API SMM)
+        // 3. Oper pesanan ke Medanpedia (menggunakan api_id dan key)
         const params = new URLSearchParams();
+        params.append('api_id', API_ID);
         params.append('key', API_KEY);
-        params.append('action', 'add');
+        params.append('action', 'order'); // Untuk Medanpedia, action-nya adalah 'order'
         params.append('service', service);
-        params.append('link', target);
+        params.append('target', target);   // Medanpedia menggunakan parameter 'target'
         params.append('quantity', quantity);
 
         const providerResponse = await fetch(API_URL, {
@@ -29,7 +31,7 @@ export async function onRequestPost(context) {
 
         const data = await providerResponse.json();
 
-        // 4. Balikin respon dari provider ke frontend kamu
+        // 4. Kembalikan respon dari provider ke frontend
         return new Response(JSON.stringify(data), {
             headers: { 'Content-Type': 'application/json' }
         });
